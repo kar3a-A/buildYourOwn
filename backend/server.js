@@ -1,19 +1,24 @@
 const express = require("express");
-const app = express();
-require('dotenv').config();
-const bookRoutes = require('./routes/bookRoutes.js');
 const morgan = require("morgan");
-const mongoose = require('mongoose');
+require("dotenv").config();
+const imageRoutes = require('./routes/images')
+const mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://kkh2003csw:test1234@practicecluster.aotoosr.mongodb.net/?retryWrites=true&w=majority&appName=practiceCluster").then(()=>{
-    console.log('Connected to Database');
+const app = express()
+const mangoURL = "mongodb+srv://kkh2003csw:test1234@imagecluster.simojbi.mongodb.net/?retryWrites=true&w=majority&appName=imageCluster"
+
+mongoose.connect(mangoURL).then(()=>{
+    console.log("Connected to mongoDB")
+    // app.listen
     app.listen(process.env.PORT, () => {
-        console.log(`Listening on port ${process.env.PORT}`);
+        console.log(`Server running on port ${process.env.PORT}`)
     })
 })
 
+app.use(express.json())
+app.use(morgan("dev"))
 
-app.use(express.json());
-app.use('/books', bookRoutes);
-app.use(morgan('dev'));
+app.use('/images',imageRoutes)
+
+
 
