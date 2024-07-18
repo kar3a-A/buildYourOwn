@@ -15,7 +15,7 @@ const ImageController = {
                 name,
                 url
             })
-            return res.json(newImage)
+            return res.status(201).json(newImage)
         }catch(e){
             return res.status(400).json({
                 error: "Invalid data"
